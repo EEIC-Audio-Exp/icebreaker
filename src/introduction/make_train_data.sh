@@ -4,7 +4,7 @@
 # 
 
 ## dialogue directory ##
-tmpdirname=../introduction/train_data
+tmpdirname=./introduction/train_data
 
 #話者番号
 spkid=$1
