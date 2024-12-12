@@ -30,6 +30,7 @@ while true; do
     #事後処理
     #現在は、10件保存したらループを抜けるようにしている
 
+    #train_dataディレクトリ内に追加したデータを、リストにも追記
     echo -e "/home/denjo/icebreaker/introduction/$filename\t$spkid" >> ./train_data/wav-spklist.txt
     if [ "$file_num" -eq 10 ];then
         break
