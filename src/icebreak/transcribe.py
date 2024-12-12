@@ -3,7 +3,7 @@ import whisper
 
 def transcribe(filename):
     model = whisper.load_model("base")
-    result = model.transcribe(filename)
+    result = model.transcribe(filename, language="ja")
     return result['text']
 
 if __name__ == "__main__":
