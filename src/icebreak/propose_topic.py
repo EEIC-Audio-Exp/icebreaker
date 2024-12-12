@@ -12,7 +12,3 @@ def propose_topic():
     speak_str = f"では、次は{topic} について話しましょう！"
     os.system(mk_jtalk_command(speak_str))
 
-
-if __name__ == '__main__':
-    for i in range(5):
-        propose_topic()
