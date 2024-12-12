@@ -3,3 +3,5 @@
 data/*
 !data/.gitkeep
 dialogue-demo/*
+spkidlist.txt
+__pycache__/*

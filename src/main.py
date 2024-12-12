@@ -1,7 +1,7 @@
 # icebreakシステムの骨組み
 
 from icebreak.icebreak import icebreak
-from icebreak.introduction import introduction
+from introduction.introduction import introduction
 
 def main():
     """アイスブレイクシステム"""
