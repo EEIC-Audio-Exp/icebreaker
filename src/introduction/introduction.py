@@ -1,5 +1,6 @@
 import os
 import subprocess
+from introduction.ask_number import ask_number
 
 def introduction():
     # 自己紹介のメイン処理
@@ -7,15 +8,15 @@ def introduction():
     # -> 参加人数を尋ねる音声を流す
     # -> 参加人数を答える
     # -> 参加人数の音声から人数を取得
-    spk_num = 2 #仮で4人に設定
+    spk_num = ask_number() #仮で4人に設定
     
     #音声ファイルリストを初期化
-    spklist_path = "../introduction/train_data/wav-spklist.txt"
+    spklist_path = "./introduction/train_data/wav-spklist.txt"
     if os.path.isfile(spklist_path):
         with open(spklist_path,"w") as f:
             pass
     
-    make_train_data_path = "../introduction/make_train_data.sh"
+    make_train_data_path = "./introduction/make_train_data.sh"
     for spk_id in range(1, spk_num+1):
         # -> チームメンバーの自己紹介を促す音声を流す
         print(str(spk_id) + "人目の人は自己紹介をはじめてください。")

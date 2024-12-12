@@ -15,13 +15,13 @@ import re
 
 jtalkbin = 'open_jtalk '
 #options = '-m /usr/share/hts-voice/nitech-jp-atr503-m001/nitech_jp_atr503_m001.htsvoice -ow /tmp/dialogue/out.wav -x /var/lib/mecab/dic/open-jtalk/naist-jdic'
-options = '-m Voice/mei/mei_angry.htsvoice -ow ../tmp/dialogue/out.wav -x /var/lib/mecab/dic/open-jtalk/naist-jdic -r 1.5 -fm 1.0'
+options = '-m ../Voice/mei/mei_angry.htsvoice -ow ./tmp_out.wav -x /var/lib/mecab/dic/open-jtalk/naist-jdic -r 1.5 -fm 1.0'
 
 
 # 音声合成のコマンドを生成 (open jtalk を 使う場合)
 def mk_jtalk_command(answer):
     jtalk = 'echo "' + answer + '" | ' + jtalkbin + options + ';'
-    play = 'play -q ../tmp/dialogue/out.wav; rm ../tmp/dialogue/out.wav;'
+    play = 'play -q ./tmp_out.wav; rm ./tmp_out.wav;'
     return jtalk + play
 
 
