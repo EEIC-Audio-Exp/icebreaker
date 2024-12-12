@@ -1,5 +1,1 @@
 *.wav
-*.mfcc
-data/*
-!data/.gitkeep
-dialogue-demo/*
