@@ -4,7 +4,7 @@
 # 
 
 ## dialogue directory ##
-tmpdirname=./train_data
+tmpdirname=../introduction/train_data
 
 #話者番号
 spkid=$1
@@ -15,6 +15,9 @@ file_num=1
 # もしディレクトリが存在しなければ作成
 if [ ! -e $tmpdirname ];then
 	mkdir ${tmpdirname}
+fi
+if [ ! -e $tmpdirname/wav ];then
+	mkdir ${tmpdirname}/wav
 fi
 
 while true; do
@@ -31,7 +34,7 @@ while true; do
     #現在は、10件保存したらループを抜けるようにしている
 
     #train_dataディレクトリ内に追加したデータを、リストにも追記
-    echo -e "/home/denjo/icebreaker/introduction/$filename\t$spkid" >> ./train_data/wav-spklist.txt
+    echo -e "$filename\t$spkid" >> $tmpdirname/wav-spklist.txt
     if [ "$file_num" -eq 10 ];then
         break
     fi
