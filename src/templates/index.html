@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icebreaker</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function updateValue() {
+            $.get('/update', function(data) {
+                $('#dynamicValue').text(data.value);
+            });
+        }
+
+        // 1秒ごとにupdateValue関数を呼び出す
+        setInterval(updateValue, 1000);
+    </script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center; /* 横方向の中央揃え */
+            align-items: center; /* 縦方向の中央揃え */
+            height: 100vh; /* ビューポートの高さを100%に */
+            margin: 0; /* デフォルトのマージンをリセット */
+            font-size: 48px; /* フォントサイズを大きく */
+        }
+    </style>
+</head>
+<body>
+    <h1><span id="dynamicValue">{{ value }}</span></h1>
+</body>
+</html>
