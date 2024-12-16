@@ -1,6 +1,6 @@
 import pandas as pd
 
-def find_least_talkative_speaker(filename):
+def least_speaker(filename):
     # CSVを読み込む
     df = pd.read_csv(filename)
 
