@@ -1,7 +1,12 @@
 # icebreakシステムの骨組み
 
+import threading
+
+from flask_site import app
+from dynamic_manager import dynamic_value_manager
 from icebreak.icebreak import icebreak
 from introduction.introduction import introduction
+
 
 def main():
     """アイスブレイクシステム"""
@@ -29,4 +34,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    threading.Thread(target=main, daemon=True).start()
+    app.run(debug=True)

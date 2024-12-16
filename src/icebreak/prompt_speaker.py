@@ -1,5 +1,5 @@
 import os
-from speak import mk_jtalk_command
+from .speak import mk_jtalk_command
 
 def prompt_quiet_speaker(speaker_id: int):
     speak_str = f"では、{speaker_id}番さん、あなたはどうでしょうか？"

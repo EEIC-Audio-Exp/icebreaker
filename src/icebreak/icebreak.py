@@ -1,7 +1,7 @@
 import signal
 
-from propose_topic import propose_topic
-from prompt_speaker import prompt_quiet_speaker
+from .propose_topic import propose_topic
+from .prompt_speaker import prompt_quiet_speaker
 
 class TimeoutError(Exception):
     pass
