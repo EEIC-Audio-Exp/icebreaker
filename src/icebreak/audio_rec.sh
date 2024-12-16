@@ -11,54 +11,57 @@ if [ ! -e $tmpdirname ];then
 	mkdir ${tmpdirname}
 fi
 
-# スクリプトのディレクトリを取得
-script_dir=$(cd $(dirname $0); pwd)
+# 現在のタイムスタンプを取得
+timestamp=$(date +"%Y%m%d_%H%M%S")
 
-# データをCSVファイルに保存
-output_csv="$script_dir/data.csv"  # Voiceディレクトリを基準に保存先を指定
-output_dir=$(dirname $output_csv)
-if [ ! -d $output_dir ]; then
-    mkdir -p $output_dir
-fi
+# 録音ファイル名にタイムスタンプを付与
+filename=${tmpdirname}/input_${timestamp}.wav
 
-# CSVのヘッダーを初回作成
-if [ ! -e $output_csv ]; then
-    echo "speaker_id,transcribe_result,duration" > $output_csv
-fi
+# 録音開始を監視するためのタイムアウト時間（5秒）
+timeout=5
+start_time=$(date +%s)
+    
+# adinrec による録音
+# filename=${tmpdirname}/input.wav
+padsp adinrec $filename > /dev/null &
 
+
+# 録音プロセスのPIDを取得
+pid=$!
+
+# タイムアウトの間、録音が開始されたかを監視
 while true; do
-	# adinrec による録音
-	filename=${tmpdirname}/input.wav
-	padsp adinrec $filename > /dev/null
-	# Ctrl-C で抜けるための処理
-	if [ ! -e $filename ];then
-		rmdir $tmpdirname
-		exit;
-	fi
+    # 録音プロセスがまだ実行中か確認
+    if ps -p $pid > /dev/null; then
+        # 録音が開始された場合、5秒以内に終了した場合の処理
+        if [ -e $filename ]; then
+            echo $filename  # 録音ファイル名を標準出力
+            exit 0  # 正常終了
+        fi
+    else
+        # 録音が終了した場合（異常終了等）
+        exit 1
+    fi
 
-	# 話者認識
-	sidfile=../../dialogue-demo/sid/spkid.txt
-	#cd sid;
-	bash ../../dialogue-demo/sid/test.sh $filename $sidfile;
-	#bash sid/test.sh record_ATR/wav/s4_b20.wav $sidfile
-	#cd ..
-	
-	# 現在の話者番号を格納
-	# もし前の状態を保存しておきたければ別変数/別ファイルを用意する
-	sidnum=$(cat $sidfile)
+    # 5秒経過した場合、録音が開始されなかったことを示す
+    current_time=$(date +%s)
+    elapsed_time=$((current_time - start_time))
 
-    # WAVファイルの情報を取得
-    duration=$(soxi -D "$filename")  # 秒数
+    if [ $elapsed_time -ge $timeout ]; then
+        echo "Recording did not start within $timeout seconds."  # タイムアウトメッセージ
+        exit 2  # タイムアウト終了
+    fi
 
-	# transcribe.pyによる文字起こし
-    transcribe_result=$(python3 transcribe.py "$filename")
-
-    # データをCSVに保存
-    echo "$sidnum,\"$transcribe_result\",$duration" >> $output_csv
-    echo "Saved to CSV: $sidnum,\"$transcribe_result\",$duration"
-
-	# 事後処理
-	rm $filename $sidfile $asrresult
+    # 少し待機してから再チェック
+    sleep 0.5
 done
-# ここは実行されないはず
-rmdir $tmpdirname
+
+
+	# # Ctrl-C で抜けるための処理
+	# if [ ! -e $filename ];then
+	# 	# rmdir $tmpdirname
+	# 	exit;
+	# fi
+
+    # # # ファイル名を標準出力
+    # echo $filename
