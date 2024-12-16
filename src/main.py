@@ -1,10 +1,23 @@
 # icebreakシステムの骨組み
 
+<<<<<<< HEAD
 #from icebreak.icebreak import icebreak
+=======
+import threading
+import time
+
+from flask_site import app
+from dynamic_manager import dynamic_value_manager
+from icebreak.icebreak import icebreak
+>>>>>>> 199455f0c26e5f49ee2294c96f7749798221a413
 from introduction.introduction import introduction
+
 
 def main():
     """アイスブレイクシステム"""
+    time.sleep(3)
+    
+    
     # 自己紹介
     # システムの説明音声を流す
     # -> 参加人数を尋ねる音声を流す
@@ -29,4 +42,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    threading.Thread(target=main, daemon=True).start()
+    app.run(debug=False)

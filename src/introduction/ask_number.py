@@ -13,6 +13,9 @@ import sys, os
 import subprocess
 import re
 
+sys.path.append('..')
+from dynamic_manager import dynamic_value_manager
+
 jtalkbin = 'open_jtalk '
 #options = '-m /usr/share/hts-voice/nitech-jp-atr503-m001/nitech_jp_atr503_m001.htsvoice -ow /tmp/dialogue/out.wav -x /var/lib/mecab/dic/open-jtalk/naist-jdic'
 options = '-m ../Voice/mei/mei_angry.htsvoice -ow ./tmp_out.wav -x /var/lib/mecab/dic/open-jtalk/naist-jdic -r 1.5 -fm 1.0'
@@ -28,6 +31,7 @@ def mk_jtalk_command(answer):
 def ask_number():
     # 1. 人数を聞く
     question = "会話に参加する人数は何人ですか？"
+    dynamic_value_manager.set_value(question)
     os.system(mk_jtalk_command(question))
 
     # 2. 人数を認識する
@@ -49,7 +53,8 @@ def ask_number():
             continue
  
         # 数字部分を整数に変換
-        number = int(match.group())       
+        number = int(match.group())
+        dynamic_value_manager.set_value(f'{str(number)}人でよろしいですね？変更はできません')
         ask_again = f"それでは、{str(number)}人でよろしいですね？変更はできません！"
         os.system(mk_jtalk_command(ask_again))
         
@@ -68,6 +73,7 @@ def ask_number():
             continue
         
         # 確定できた！
+        dynamic_value_manager.set_value(f'{str(number)}人で承りました')
         confirm = f"それでは、{str(number)}人で承りました！"
         os.system(mk_jtalk_command(confirm))
         return number

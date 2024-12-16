@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ./introduction/train_data/wav/s1_001.wav	1
 ./introduction/train_data/wav/s1_002.wav	1
 ./introduction/train_data/wav/s1_003.wav	1
@@ -20,3 +21,10 @@
 ./introduction/train_data/wav/s2_008.wav	2
 ./introduction/train_data/wav/s2_009.wav	2
 ./introduction/train_data/wav/s2_010.wav	2
+=======
+/home/denjo/icebreaker/dialogue-demo/sid/tmp/s1_001_01.wav	1
+./introduction/train_data/wav/s1_002.wav	1
+./introduction/train_data/wav/s2_001.wav	2
+./introduction/train_data/wav/s3_001.wav	3
+./introduction/train_data/wav/s3_002.wav	3
+>>>>>>> 199455f0c26e5f49ee2294c96f7749798221a413

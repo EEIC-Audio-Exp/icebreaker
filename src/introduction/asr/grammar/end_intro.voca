@@ -1,0 +1,31 @@
+% END_WORD
+以上です	i j o: d e s u
+こんにちは	k o N n i ch i h a
+私は	w a t a sh i h a
+僕は	b o k u h a
+あいうえお	a i u e o
+かきくけこ	k a k i k u k e k o
+さしすせそ	s a sh i s u s e s o
+たちつてと	t a ch i ts u t e t o
+なにぬねの	n a n i n u n e n o
+はひふへほ	h a h i f u h e h o
+まみむめも	m a m i m u m e m o
+やゆよ	y a y u y o
+らりるれろ	r a r i r u r e r o
+わをん	w a o N
+がぎぐげご	g a g i g u g e g o
+だぢづでど	d a j i z u d e d o
+ばびぶべぼ	b a b i b u b e b o
+ぱぴぷぺぽ	p a p i p u p e p o
+きゃきゅきょ	ky a ky u ky o
+ぎゃぎゅぎょ	gy a gy u gy o
+しゃしゅしょ	sh a sh u sh o
+じゃじゅじょ	j a j u j o
+ひゃひゅひょ	hy a hy u hy o
+びゃびゅびょ	by a by u by o
+ぴゃぴゅぴょ	py a py u py o
+	
+% NS_B			# 文頭無音
+silB	silB
+% NS_E			# 文末無音
+silE	silE

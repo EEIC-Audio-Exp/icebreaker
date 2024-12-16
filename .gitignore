@@ -4,5 +4,9 @@ data/*
 !data/.gitkeep
 dialogue-demo/*
 spkidlist.txt
+<<<<<<< HEAD
 __pycache__/*
 src/icebreak/data.csv
+=======
+__pycache__/
+>>>>>>> 199455f0c26e5f49ee2294c96f7749798221a413
