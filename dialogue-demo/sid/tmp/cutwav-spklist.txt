@@ -1,8 +1,5 @@
 /home/denjo/icebreaker/dialogue-demo/sid/tmp/s1_001_01.wav	1
-/home/denjo/icebreaker/dialogue-demo/sid/tmp/s1_001_02.wav	1
-/home/denjo/icebreaker/dialogue-demo/sid/tmp/s1_001_03.wav	1
 ./introduction/train_data/wav/s1_002.wav	1
 ./introduction/train_data/wav/s2_001.wav	2
-/home/denjo/icebreaker/dialogue-demo/sid/tmp/s2_002_01.wav	2
-/home/denjo/icebreaker/dialogue-demo/sid/tmp/s2_003_01.wav	2
-./introduction/train_data/wav/s2_004.wav	2
+./introduction/train_data/wav/s3_001.wav	3
+./introduction/train_data/wav/s3_002.wav	3

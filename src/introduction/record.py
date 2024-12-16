@@ -7,6 +7,9 @@ import sys, os
 import subprocess
 import re
 
+sys.path.append('..')
+from dynamic_manager import dynamic_value_manager
+
 jtalkbin = 'open_jtalk '
 #options = '-m /usr/share/hts-voice/nitech-jp-atr503-m001/nitech_jp_atr503_m001.htsvoice -ow /tmp/dialogue/out.wav -x /var/lib/mecab/dic/open-jtalk/naist-jdic'
 options = '-m ../Voice/mei/mei_angry.htsvoice -ow ./tmp_out.wav -x /var/lib/mecab/dic/open-jtalk/naist-jdic -r 1.5 -fm 1.0'
@@ -29,6 +32,7 @@ def record(spk_num = 4):
     make_train_data_path = "./introduction/make_train_data.sh"
     for spk_id in range(1, spk_num+1):
         # チームメンバーの自己紹介を促す音声を流す
+        dynamic_value_manager.set_value(f'【自己紹介】{str(spk_id)}番目の方、お願いします')
         os.system(mk_jtalk_command(f'{str(spk_id)}番目の人は、自己紹介をはじめてください。自己紹介が終わったら、少し間をおいてから、以上です、と言ってください。'))
 
         # 各メンバーの音声を保存

@@ -1,8 +1,5 @@
 /home/denjo/icebreaker/dialogue-demo/sid/mfcc/s1_001_01.mfcc
-/home/denjo/icebreaker/dialogue-demo/sid/mfcc/s1_001_02.mfcc
-/home/denjo/icebreaker/dialogue-demo/sid/mfcc/s1_001_03.mfcc
 /home/denjo/icebreaker/dialogue-demo/sid/mfcc/s1_002.mfcc
 /home/denjo/icebreaker/dialogue-demo/sid/mfcc/s2_001.mfcc
-/home/denjo/icebreaker/dialogue-demo/sid/mfcc/s2_002_01.mfcc
-/home/denjo/icebreaker/dialogue-demo/sid/mfcc/s2_003_01.mfcc
-/home/denjo/icebreaker/dialogue-demo/sid/mfcc/s2_004.mfcc
+/home/denjo/icebreaker/dialogue-demo/sid/mfcc/s3_001.mfcc
+/home/denjo/icebreaker/dialogue-demo/sid/mfcc/s3_002.mfcc

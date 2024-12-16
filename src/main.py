@@ -1,6 +1,7 @@
 # icebreakシステムの骨組み
 
 import threading
+import time
 
 from flask_site import app
 from dynamic_manager import dynamic_value_manager
@@ -10,6 +11,9 @@ from introduction.introduction import introduction
 
 def main():
     """アイスブレイクシステム"""
+    time.sleep(3)
+    
+    
     # 自己紹介
     # システムの説明音声を流す
     # -> 参加人数を尋ねる音声を流す

@@ -1,31 +1,71 @@
 *
-optimization finished, #iter = 4
-nu = 1.000000
-obj = -0.489502, rho = 0.008009
-nSV = 8, nBSV = 8
-Total nSV = 8
+optimization finished, #iter = 2
+nu = 0.666667
+obj = -0.122997, rho = -0.980092
+nSV = 3, nBSV = 1
 *
-optimization finished, #iter = 3
-nu = 1.000000
-obj = -0.367186, rho = 0.005317
-nSV = 6, nBSV = 6
-Total nSV = 6
+optimization finished, #iter = 2
+nu = 0.666667
+obj = -0.123062, rho = -0.981160
+nSV = 3, nBSV = 1
 *
-optimization finished, #iter = 3
+optimization finished, #iter = 1
 nu = 1.000000
-obj = -0.367537, rho = 0.004874
-nSV = 6, nBSV = 6
-Total nSV = 6
+obj = -0.122761, rho = 0.000000
+nSV = 2, nBSV = 2
+Total nSV = 4
 *
-optimization finished, #iter = 3
-nu = 1.000000
-obj = -0.367655, rho = 0.005279
-nSV = 6, nBSV = 6
-Total nSV = 6
+optimization finished, #iter = 2
+nu = 0.666667
+obj = -0.123141, rho = -0.981251
+nSV = 3, nBSV = 1
 *
-optimization finished, #iter = 3
+optimization finished, #iter = 2
+nu = 0.666667
+obj = -0.122956, rho = -0.978606
+nSV = 3, nBSV = 1
+*
+optimization finished, #iter = 1
 nu = 1.000000
-obj = -0.367277, rho = 0.005192
-nSV = 6, nBSV = 6
-Total nSV = 6
-Cross Validation Accuracy = 100%
+obj = -0.122469, rho = 0.000000
+nSV = 2, nBSV = 2
+Total nSV = 4
+*
+optimization finished, #iter = 2
+nu = 1.000000
+obj = -0.244476, rho = 0.002553
+nSV = 4, nBSV = 4
+Total nSV = 4
+*
+optimization finished, #iter = 2
+nu = 0.666667
+obj = -0.122705, rho = 0.975749
+nSV = 3, nBSV = 1
+*
+optimization finished, #iter = 1
+nu = 1.000000
+obj = -0.121898, rho = 0.000000
+nSV = 2, nBSV = 2
+*
+optimization finished, #iter = 2
+nu = 0.666667
+obj = -0.122997, rho = -0.980092
+nSV = 3, nBSV = 1
+Total nSV = 4
+*
+optimization finished, #iter = 2
+nu = 0.666667
+obj = -0.122757, rho = -0.976098
+nSV = 3, nBSV = 1
+*
+optimization finished, #iter = 2
+nu = 0.666667
+obj = -0.123141, rho = -0.981251
+nSV = 3, nBSV = 1
+*
+optimization finished, #iter = 1
+nu = 1.000000
+obj = -0.121908, rho = 0.000000
+nSV = 2, nBSV = 2
+Total nSV = 4
+Cross Validation Accuracy = 0%
