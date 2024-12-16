@@ -1,6 +1,6 @@
 # icebreakシステムの骨組み
 
-#from icebreak.icebreak import icebreak
+from icebreak.icebreak import icebreak
 from introduction.introduction import introduction
 
 def main():
