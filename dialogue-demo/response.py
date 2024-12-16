@@ -54,5 +54,11 @@ if __name__ == '__main__':
     else:
         answer = 'もう一度お願いします'
     print("Silly: " + answer)
+
+    #cmscore出力
+    cmscore = open(sys.argv[4],'r')
+    cmout = cmscore.read().rstrip()
+
+    print(cmout)
     os.system(mk_jtalk_command(answer))
 
