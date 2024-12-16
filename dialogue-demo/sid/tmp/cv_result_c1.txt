@@ -1,31 +1,71 @@
-.*
-optimization finished, #iter = 13
-nu = 0.747578
-obj = -5.981164, rho = 0.166461
-nSV = 8, nBSV = 0
-Total nSV = 8
-.*.*
-optimization finished, #iter = 13
-nu = 0.752749
-obj = -4.515569, rho = 0.088698
-nSV = 6, nBSV = 0
-Total nSV = 6
-.*
+.*..*
 optimization finished, #iter = 9
-nu = 0.791475
-obj = -4.748960, rho = 0.107858
-nSV = 6, nBSV = 0
-Total nSV = 6
+nu = 0.650030
+obj = -1.950325, rho = -0.378768
+nSV = 3, nBSV = 0
+*.*
+optimization finished, #iter = 3
+nu = 0.666667
+obj = -2.015079, rho = -0.397112
+nSV = 3, nBSV = 1
+*
+optimization finished, #iter = 1
+nu = 0.872291
+obj = -1.744582, rho = 0.000000
+nSV = 2, nBSV = 0
+Total nSV = 4
 .*
+optimization finished, #iter = 4
+nu = 0.666667
+obj = -2.096365, rho = -0.400042
+nSV = 3, nBSV = 1
+..*.*
 optimization finished, #iter = 9
-nu = 0.799315
-obj = -4.796104, rho = 0.145474
-nSV = 6, nBSV = 0
-Total nSV = 6
+nu = 0.637068
+obj = -1.911518, rho = -0.345657
+nSV = 3, nBSV = 0
+*
+optimization finished, #iter = 1
+nu = 0.771669
+obj = -1.543337, rho = 0.000000
+nSV = 2, nBSV = 0
+Total nSV = 4
 .*.*
-optimization finished, #iter = 12
-nu = 0.761305
-obj = -4.568555, rho = 0.118587
-nSV = 6, nBSV = 0
-Total nSV = 6
-Cross Validation Accuracy = 100%
+optimization finished, #iter = 8
+nu = 0.713728
+obj = -2.854856, rho = 0.030796
+nSV = 4, nBSV = 0
+Total nSV = 4
+..*.*
+optimization finished, #iter = 11
+nu = 0.567148
+obj = -1.701710, rho = 0.339711
+nSV = 3, nBSV = 0
+*
+optimization finished, #iter = 1
+nu = 0.629700
+obj = -1.259401, rho = 0.000000
+nSV = 2, nBSV = 0
+.*..*
+optimization finished, #iter = 9
+nu = 0.650030
+obj = -1.950325, rho = -0.378768
+nSV = 3, nBSV = 0
+Total nSV = 4
+..*.*
+optimization finished, #iter = 11
+nu = 0.580775
+obj = -1.741484, rho = -0.333988
+nSV = 3, nBSV = 0
+.*
+optimization finished, #iter = 4
+nu = 0.666667
+obj = -2.096365, rho = -0.400042
+nSV = 3, nBSV = 1
+*
+optimization finished, #iter = 1
+nu = 0.631575
+obj = -1.263151, rho = 0.000000
+nSV = 2, nBSV = 0
+Total nSV = 4
+Cross Validation Accuracy = 0%

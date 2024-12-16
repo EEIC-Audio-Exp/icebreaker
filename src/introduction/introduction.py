@@ -16,5 +16,4 @@ def introduction():
 
     # 録音された音声を使って学習を行う
     train()
-    pass
 

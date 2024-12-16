@@ -8,6 +8,9 @@ import subprocess
 import re
 from multiprocessing import Process
 
+sys.path.append('..')
+from dynamic_manager import dynamic_value_manager
+
 jtalkbin = 'open_jtalk '
 #options = '-m /usr/share/hts-voice/nitech-jp-atr503-m001/nitech_jp_atr503_m001.htsvoice -ow /tmp/dialogue/out.wav -x /var/lib/mecab/dic/open-jtalk/naist-jdic'
 options = '-m ../Voice/mei/mei_angry.htsvoice -ow ./tmp_out.wav -x /var/lib/mecab/dic/open-jtalk/naist-jdic -r 1.0 -fm 1.0'
@@ -26,6 +29,7 @@ def task_train():
 
 def task_jtalk():
     end_intro = "自己紹介が終わったので、ここからアイスブレイキングに入ります。"
+    dynamic_value_manager.set_value('ここからアイスブレイキングに入ります')
     os.system(mk_jtalk_command(end_intro))
 
 def train():
