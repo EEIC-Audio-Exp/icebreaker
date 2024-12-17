@@ -1,5 +1,0 @@
-/home/denjo/icebreaker/dialogue-demo/sid/tmp/s1_001_01.wav	1
-./introduction/train_data/wav/s1_002.wav	1
-./introduction/train_data/wav/s2_001.wav	2
-./introduction/train_data/wav/s3_001.wav	3
-./introduction/train_data/wav/s3_002.wav	3

@@ -1,5 +1,6 @@
 *.wav
 *.mfcc
+*.txt
 data/*
 !data/.gitkeep
 dialogue-demo/*
