@@ -13,9 +13,9 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 topic_df = pd.read_csv(os.path.join(script_dir, 'topics.csv'))
 
 def determine_topic() -> str:
-    record_wav_path = sorted(os.listdir('./input'))[-1]
-    if os.path.exists(record_wav_path):
-        tension = get_tension('./input.wav')
+    record_wav_paths = sorted(os.listdir('./input'))
+    if record_wav_paths:
+        tension = get_tension(record_wav_paths[-1])
         comical = 100 - tension
         nearest_index = (df['tension'] - comical).abs().idxmin()
         topic = df.loc[nearest_index, 'topic']
