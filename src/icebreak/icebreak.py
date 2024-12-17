@@ -7,6 +7,7 @@ import csv
 
 from .propose_topic import propose_topic
 from .prompt_speaker import prompt_quiet_speaker
+from .least_speaker import least_speaker
 
 wav_queue = asyncio.Queue()
 
@@ -36,8 +37,8 @@ async def process_wav_files():
 def process_wav(filename):
     try:
         # 話者認識
-        sidfile="../../dialogue-demo/sid/spkid.txt"
-        sid_command = ["bash", "../../dialogue-demo/sid/test.sh", filename, sidfile]
+        sidfile="../dialogue-demo/sid/spkid.txt"
+        sid_command = ["bash", "../dialogue-demo/sid/test.sh", filename, sidfile]
         subprocess.run(sid_command, check=True)
 
         with open(sidfile, "r") as f:
@@ -48,10 +49,10 @@ def process_wav(filename):
         duration = subprocess.check_output(soxi_command).decode().strip()
 
         # 文字起こし
-        transcribe_command = ["python3", "transcribe.py", filename]
+        transcribe_command = ["python3", "icebreak/transcribe.py", filename]
         transcribe_result = subprocess.check_output(transcribe_command).decode().strip()
 
-        output_csv="data.csv"
+        output_csv="icebreak/data.csv"
         # データを CSV に保存
         csv_exists = os.path.exists(output_csv)
         with open(output_csv, "a", newline="") as csvfile:
@@ -80,18 +81,16 @@ async def icebreak_talk(limit_time_sec: int = 300):
     
     signal.signal(signal.SIGALRM, timeout_handler)
     signal.alarm(limit_time_sec)
+
+    flag = 0
     
     try:
-        # propose_topic()
+        propose_topic()
         while True:
             # propose_topic()
 
             print("<<Please speak.>>")
-
-            timeout = 5
-            script_path = "./audio_rec.sh"
-            
-
+            script_path = "icebreak/audio_rec.sh"
             
             process = await asyncio.create_subprocess_exec(
                 "bash", script_path,
@@ -105,8 +104,15 @@ async def icebreak_talk(limit_time_sec: int = 300):
             if process.returncode != 0:
                 print(f"Error occurred during recording: {stderr.decode()}")
                 if process.returncode == 2:
-                    print("Recording did not start within the specified timeout.")
+                    if flag == 0:
+                        prompt_quiet_speaker(least_speaker("icebreak/data.csv"))
+                        flag = 1
+                    else:
+                        propose_topic()
+                        flag = 0
+                    # print("Recording did not start within the specified timeout.")
                 continue
+
             # ファイル名を取得
             filename = stdout.decode().strip()  # 標準出力からファイル名を取得
             print(f"Recorded file: {filename}")
@@ -125,7 +131,7 @@ async def icebreak_talk(limit_time_sec: int = 300):
 def icebreak():
     loop = asyncio.get_event_loop()
     loop.create_task(process_wav_files())  # 非同期でwavファイルの処理を開始
-    loop.run_until_complete(icebreak_talk(20))  # アイスブレイクの処理を同期で実行
+    loop.run_until_complete(icebreak_talk(50))  # アイスブレイクの処理を同期で実行
     
 if __name__ == "__main__":
     icebreak()

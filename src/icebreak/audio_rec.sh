@@ -49,6 +49,8 @@ while true; do
 
     if [ $elapsed_time -ge $timeout ]; then
         echo "Recording did not start within $timeout seconds."  # タイムアウトメッセージ
+        kill $pid          # 録音プロセスを終了
+        wait $pid          # プロセス終了を確認
         exit 2  # タイムアウト終了
     fi
 
