@@ -7,10 +7,12 @@ from flask_site import app
 from dynamic_manager import dynamic_value_manager
 from icebreak.icebreak import icebreak
 from introduction.introduction import introduction
+from clear import clear
 
 
 def main():
     """アイスブレイクシステム"""
+    clear()
     time.sleep(3)
     
     
