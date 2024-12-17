@@ -13,15 +13,22 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 topic_df = pd.read_csv(os.path.join(script_dir, 'topics.csv'))
 
 def determine_topic() -> str:
+    global topic_df
     record_wav_paths = sorted(os.listdir('./input'))
     if record_wav_paths:
-        tension = get_tension(record_wav_paths[-1])
+        tension = get_tension(f'./input/{record_wav_paths[-1]}')
+        print(f"Tension is {tension}!!")
         comical = 100 - tension
-        nearest_index = (df['tension'] - comical).abs().idxmin()
-        topic = df.loc[nearest_index, 'topic']
+        nearest_index = (topic_df['tension'] - comical).abs().idxmin()
+        topic = topic_df.loc[nearest_index, 'topic']
+        topic_df = topic_df.drop(index=nearest_index)
     else:
-        topic_list = topic_df['topic'].to_list()
-        topic = random.choice(topic_list)    
+        random_row = topic_df.sample(n=1)
+        index = random_row.index[0]
+        topic_df = topic_df.drop(index=index)
+        print(random_row)
+        topic = str(random_row['topic'])
+        
     return topic
 
 def propose_topic():
@@ -29,4 +36,3 @@ def propose_topic():
     dynamic_value_manager.set_value(topic)
     speak_str = f"では、次は{topic} について話しましょう！"
     os.system(mk_jtalk_command(speak_str))
-
