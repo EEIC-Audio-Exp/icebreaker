@@ -1,79 +1,69 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import japanize_matplotlib
-from sklearn.datasets import load_iris
 from sklearn.decomposition import PCA
 from sklearn import mixture
 from matplotlib.colors import LogNorm
+from sklearn.metrics import accuracy_score
+import joblib
+
+import os
 
 from get_mfcc import get_mfcc
 
-# Irisデータセットの読み込み
-iris = load_iris()
-data = iris.data  # 特徴量データ
-labels = iris.target  # ラベルデータ
 
-print(data[:10])
-print(labels[:10])
+# データのmfccを取得してモデルを作る
 
-# ここをMFCCで持ってくる
-data = []
-labels = []
+# 非緊張モデル
+dir_path = "src/icebreak/get_emotion/data/relaxed"
+data_relaxed = []
+labels_relaxed = []
+file_names = os.listdir(dir_path)
+for file_name in file_names:
+    mfcc, label = get_mfcc(os.path.join(dir_path, file_name), 0)
+    data_relaxed.extend(mfcc)
+    labels_relaxed.extend(label)
 
-# 緊張データ
+# GMMのモデルを作成
+gmm_relaxed = mixture.GaussianMixture(n_components=32, covariance_type='full')
+gmm_relaxed.fit(data_relaxed)
+# モデルをファイルに保存
+joblib.dump(gmm_relaxed, 'src/icebreak/get_emotion/models/gmm_relaxed_model.pkl')
+
+# 緊張モデル
 dir_path = "src/icebreak/get_emotion/data/tensed"
+data_tensed = []
+labels_tensed = []
+file_names = os.listdir(dir_path)
+for file_name in file_names:
+    mfcc, label = get_mfcc(os.path.join(dir_path, file_name), 1)
+    data_tensed.extend(mfcc)
+    labels_tensed.extend(label)
 
-
-# 緊張していないデータ
-mfcc, label = get_mfcc("new_vowels/test/spk1/spk1_aeiou_05.wav", 0)
-data.extend(mfcc)
-labels.extend(label)
-mfcc, label = get_mfcc("new_vowels/test/spk2/spk2_aeiou_05.wav", 1)
-data.extend(mfcc)
-labels.extend(label)
-
-# PCAによる次元削減
-pca = PCA(n_components=2)
-trans_pca = pca.fit_transform(data)
-
-# プロット設定
-fig, ax = plt.subplots()
-
-cmap = plt.get_cmap("tab10")
-color = [cmap(label) for label in labels]
-
-ax.set_xlabel("PCA axis 1")
-ax.set_ylabel("PCA axis 2")
-
-# ラベルごとのデータをプロット
-for i in range(2):
-    ax.scatter(trans_pca[labels == i, 0], trans_pca[labels == i, 1], color=cmap(i), s=10, marker="o", label="Label: {}".format(i))
-ax.legend()
-
-# GMMの適用
-gmm = mixture.GaussianMixture(n_components=2, covariance_type='full')
-#gmm.fit(trans_pca)
-gmm.fit(data)
+# GMMのモデルを作成
+gmm_tensed = mixture.GaussianMixture(n_components=32, covariance_type='full')
+gmm_tensed.fit(data_tensed)
+# モデルをファイルに保存
+joblib.dump(gmm_tensed, 'src/icebreak/get_emotion/models/gmm_tensed_model.pkl')
 
 # クラスタリング結果の予測
-gmm_labels = gmm.predict(data)
+data = data_relaxed + data_tensed
+labels = labels_relaxed + labels_tensed
+gmm_relaxed_score = gmm_relaxed.score_samples(data)  # リラックス音声の対数尤度
+gmm_tensed_score = gmm_tensed.score_samples(data)    # 緊張音声の対数尤度
 
-# 予測結果の表示（例: 最初の10個のラベル）
-print(gmm_labels[:100])
-print(labels[:100])
-# プロットを表示
-x = np.linspace(-4, 4)
-y = np.linspace(-2, 2)
-X, Y = np.meshgrid(x, y)
-XX = np.array([X.ravel(), Y.ravel()]).T
-Z =  - gmm.score_samples(XX)
-Z = Z.reshape(X.shape)
+# 最も尤度が大きいモデルを選択
+predicted_labels = np.argmax(np.vstack([gmm_relaxed_score, gmm_tensed_score]), axis=0)
 
-fig,ax=plt.subplots(dpi=150,figsize=(5,4))
+# クラスターの再マッピング
+# 混同行列を作成
+contingency_matrix = np.zeros((2, 2), dtype=int)  # クラス数が2の場合
 
-ax.scatter(trans_pca[:, 0], trans_pca[:, 1], s=0.5,c=labels)
-cont = ax.contourf(X, Y, Z, norm=LogNorm(vmin=1.0, vmax=100.0), levels=np.logspace(-1, 3, 20), alpha=0.2, linestyles='dashed', linewidths=0.5)
-ax.scatter(trans_pca[:, 0], trans_pca[:, 1], s=1, c=labels)
+for true_label, predicted_label in zip(labels, predicted_labels):
+    contingency_matrix[true_label, predicted_label] += 1
 
-ax.set_title("GMMによるクラスタリングと等高線")
-plt.show()
+print(contingency_matrix)  # 混同行列を表示して確認
+
+# 正答率の計算
+accuracy = accuracy_score(labels, predicted_labels)
+print("正答率:", accuracy)
