@@ -66,7 +66,7 @@ def process_wav(filename):
         print(f"Error processing audio: {e}", file=sys.stderr)
 
 
-async def icebreak(limit_time_sec: int = 300):
+async def icebreak_talk(limit_time_sec: int = 300):
     # アイスブレイクのメイン処理
     # 話題を提供 
     # -> メンバーが話す 
@@ -121,9 +121,15 @@ async def icebreak(limit_time_sec: int = 300):
         print('Time is up!')
     finally:
         signal.alarm(0)    
-    
-if __name__ == "__main__":
-    # 非同期タスクを実行
+
+def icebreak():
     loop = asyncio.get_event_loop()
     loop.create_task(process_wav_files())  # 非同期でwavファイルの処理を開始
-    loop.run_until_complete(icebreak(20))  # アイスブレイクの処理を同期で実行
+    loop.run_until_complete(icebreak_talk(20))  # アイスブレイクの処理を同期で実行
+    
+if __name__ == "__main__":
+    icebreak()
+    # 非同期タスクを実行
+    # loop = asyncio.get_event_loop()
+    # loop.create_task(process_wav_files())  # 非同期でwavファイルの処理を開始
+    # loop.run_until_complete(icebreak_talk(20))  # アイスブレイクの処理を同期で実行
