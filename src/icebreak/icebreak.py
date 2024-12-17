@@ -106,8 +106,10 @@ async def icebreak_talk(limit_time_sec: int = 300):
                 print(f"Error occurred during recording: {stderr.decode()}")
                 if process.returncode == 2:
                     if flag == 0:
-                        prompt_quiet_speaker(least_speaker("icebreak/data.csv", spk_num))
-                        flag = 1
+                        data_path = "icebreak/data.csv"
+                        if os.path.exists(data_path):
+                            prompt_quiet_speaker(least_speaker("icebreak/data.csv", spk_num))
+                            flag = 1
                     else:
                         propose_topic()
                         flag = 0

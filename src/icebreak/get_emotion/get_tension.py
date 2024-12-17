@@ -1,12 +1,12 @@
 import joblib
-from get_mfcc import get_mfcc
+from .get_mfcc import get_mfcc
 import numpy as np
 
 def get_tension(wav_path: str)->int:
     
     # モデルの読み込み
-    gmm_relaxed = joblib.load('src/icebreak/get_emotion/models/gmm_relaxed_model.pkl')
-    gmm_tensed = joblib.load('src/icebreak/get_emotion/models/gmm_tensed_model.pkl')
+    gmm_relaxed = joblib.load('icebreak/get_emotion/models/gmm_relaxed_model.pkl')
+    gmm_tensed = joblib.load('icebreak/get_emotion/models/gmm_tensed_model.pkl')
 
     # MFCCの取得
     mfcc, label = get_mfcc(wav_path, 1)
@@ -42,7 +42,7 @@ def get_tension(wav_path: str)->int:
     return tension_score
 
 if __name__ == "__main__":
-    get_tension("src/icebreak/get_emotion/data/tensed/F2_fear_free_01.wav")
-    get_tension("src/icebreak/get_emotion/data/relaxed/F2_happy_free_01.wav")
-    get_tension("src/icebreak/get_emotion/data/tensed/M2_fear_free_01.wav")
-    get_tension("src/icebreak/get_emotion/data/relaxed/M2_happy_free_01.wav")
+    get_tension("icebreak/get_emotion/data/tensed/F2_fear_free_01.wav")
+    get_tension("icebreak/get_emotion/data/relaxed/F2_happy_free_01.wav")
+    get_tension("icebreak/get_emotion/data/tensed/M2_fear_free_01.wav")
+    get_tension("icebreak/get_emotion/data/relaxed/M2_happy_free_01.wav")
