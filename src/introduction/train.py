@@ -42,6 +42,8 @@ def train():
 
     process_train.join()
     process_jtalk.join()
+    
+    print("話者認識用の学習が完了しました")
     return
 
 if __name__ == '__main__':

@@ -37,6 +37,12 @@ def main():
     icebreak()
 
 
-if __name__ == "__main__":
-    threading.Thread(target=main, daemon=True).start()
+
+def run_app():
+    global app
     app.run(debug=False)
+
+
+if __name__ == "__main__":
+    threading.Thread(target=run_app, daemon=True).start()
+    main()

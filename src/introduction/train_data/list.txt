@@ -1,1 +1,1 @@
-./introduction/train_data/wav/s3_002.wav
+./introduction/train_data/wav/s1_002.wav
