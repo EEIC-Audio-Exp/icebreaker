@@ -18,7 +18,7 @@ def determine_topic() -> str:
     if record_wav_paths:
         tension = get_tension(f'./input/{record_wav_paths[-1]}')
         print(f"Tension is {tension}!!")
-        comical = 100 - tension
+        comical = 100 - tension + random.randint(-20, 20)
         nearest_index = (topic_df['tension'] - comical).abs().idxmin()
         topic = topic_df.loc[nearest_index, 'topic']
         topic_df = topic_df.drop(index=nearest_index)
@@ -27,7 +27,7 @@ def determine_topic() -> str:
         index = random_row.index[0]
         topic_df = topic_df.drop(index=index)
         print(random_row)
-        topic = str(random_row['topic'])
+        topic = random_row['topic'].values[0]
         
     return topic
 
