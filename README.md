@@ -2,7 +2,6 @@
 必要なモジュール・ライブラリのインストール
 
 ```
-cd ./icebreaker
 sudo apt update
 sudo apt install python3 python3-pip
 pip install --upgrade pip
