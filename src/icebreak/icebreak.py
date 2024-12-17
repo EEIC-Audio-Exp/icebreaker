@@ -11,6 +11,8 @@ from .least_speaker import least_speaker
 
 wav_queue = asyncio.Queue()
 
+spk_num = 0
+
 class TimeoutError(Exception):
     pass
 
@@ -87,7 +89,6 @@ async def icebreak_talk(limit_time_sec: int = 300):
     try:
         propose_topic()
         while True:
-            # propose_topic()
 
             print("<<Please speak.>>")
             script_path = "icebreak/audio_rec.sh"
@@ -105,7 +106,7 @@ async def icebreak_talk(limit_time_sec: int = 300):
                 print(f"Error occurred during recording: {stderr.decode()}")
                 if process.returncode == 2:
                     if flag == 0:
-                        prompt_quiet_speaker(least_speaker("icebreak/data.csv"))
+                        prompt_quiet_speaker(least_speaker("icebreak/data.csv", spk_num))
                         flag = 1
                     else:
                         propose_topic()
@@ -120,22 +121,17 @@ async def icebreak_talk(limit_time_sec: int = 300):
             # キューに追加
             await wav_queue.put(filename)
             print(f"Added to queue: {filename}")
-            
-            # prompt_quiet_speaker(1)
 
     except TimeoutError:
         print('Time is up!')
     finally:
         signal.alarm(0)    
 
-def icebreak():
+def icebreak(num_speakers: int):
+    global spk_num  # グローバル変数として話者人数を設定
+    spk_num = num_speakers  # 引数として渡された人数を設定
+
     loop = asyncio.get_event_loop()
     loop.create_task(process_wav_files())  # 非同期でwavファイルの処理を開始
     loop.run_until_complete(icebreak_talk(50))  # アイスブレイクの処理を同期で実行
-    
-if __name__ == "__main__":
-    icebreak()
-    # 非同期タスクを実行
-    # loop = asyncio.get_event_loop()
-    # loop.create_task(process_wav_files())  # 非同期でwavファイルの処理を開始
-    # loop.run_until_complete(icebreak_talk(20))  # アイスブレイクの処理を同期で実行
+
