@@ -8,6 +8,7 @@ import csv
 from .propose_topic import propose_topic
 from .prompt_speaker import prompt_quiet_speaker
 from .least_speaker import least_speaker
+from .end_icebreak import end_icebreak
 
 wav_queue = asyncio.Queue()
 
@@ -125,6 +126,7 @@ async def icebreak_talk(limit_time_sec: int = 300):
             print(f"Added to queue: {filename}")
 
     except TimeoutError:
+        end_icebreak()
         print('Time is up!')
     finally:
         signal.alarm(0)    
@@ -135,5 +137,5 @@ def icebreak(num_speakers: int):
 
     loop = asyncio.get_event_loop()
     loop.create_task(process_wav_files())  # 非同期でwavファイルの処理を開始
-    loop.run_until_complete(icebreak_talk(5 * 60))  # アイスブレイクの処理を同期で実行
+    loop.run_until_complete(icebreak_talk(10))  # アイスブレイクの処理を同期で実行
 
