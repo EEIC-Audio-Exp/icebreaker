@@ -28,9 +28,13 @@ def task_train():
     res = subprocess.run(["bash", train_path, spklist_path], capture_output=True, text=True)
 
 def task_jtalk():
-    end_intro = "自己紹介が終わったので、ここからアイスブレイキングに入ります。"
+    end_intro = "自己紹介が終わったので、ここからアイスブレイキングに入ります。私から話題を提示しますので、その話題についてみなさんで自由に話し合いましょう。"
     dynamic_value_manager.set_value('ここからアイスブレイキングに入ります')
     os.system(mk_jtalk_command(end_intro))
+
+    end_intro2 = "システムの準備が終わるまで、少々お待ちください。"
+    os.system(mk_jtalk_command(end_intro2))
+
 
 def train():
     #全員の音声をもとに学習しつつ、その間を音声でもたせる
