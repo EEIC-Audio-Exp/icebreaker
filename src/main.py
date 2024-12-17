@@ -1,15 +1,11 @@
 # icebreakシステムの骨組み
 
-<<<<<<< HEAD
-#from icebreak.icebreak import icebreak
-=======
 import threading
 import time
 
 from flask_site import app
 from dynamic_manager import dynamic_value_manager
 from icebreak.icebreak import icebreak
->>>>>>> 199455f0c26e5f49ee2294c96f7749798221a413
 from introduction.introduction import introduction
 
 
