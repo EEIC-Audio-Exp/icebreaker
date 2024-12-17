@@ -6,7 +6,8 @@
 def mk_jtalk_command(
     speak_str: str,
     jtalkbin: str = '/usr/bin/open_jtalk ',
-    options: str = '-m /usr/share/hts-voice/nitech-jp-atr503-m001/nitech_jp_atr503_m001.htsvoice -ow /tmp/dialogue/out.wav -x /var/lib/mecab/dic/open-jtalk/naist-jdic',
+    # options: str = '-m /usr/share/hts-voice/nitech-jp-atr503-m001/nitech_jp_atr503_m001.htsvoice -ow /tmp/dialogue/out.wav -x /var/lib/mecab/dic/open-jtalk/naist-jdic',
+    options: str = '-m ../Voice/mei/mei_angry.htsvoice -ow /tmp/dialogue/out.wav -x /var/lib/mecab/dic/open-jtalk/naist-jdic -r 1.0 -fm 1.0',
 ):
     jtalk = 'echo "' + speak_str + '" | ' + jtalkbin + options + ';'
     play = 'play -q /tmp/dialogue/out.wav; rm /tmp/dialogue/out.wav;'
