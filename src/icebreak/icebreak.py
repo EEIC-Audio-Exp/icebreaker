@@ -137,5 +137,5 @@ def icebreak(num_speakers: int):
 
     loop = asyncio.get_event_loop()
     loop.create_task(process_wav_files())  # 非同期でwavファイルの処理を開始
-    loop.run_until_complete(icebreak_talk(10))  # アイスブレイクの処理を同期で実行
+    loop.run_until_complete(icebreak_talk(5 * 60))  # アイスブレイクの処理を同期で実行
 
