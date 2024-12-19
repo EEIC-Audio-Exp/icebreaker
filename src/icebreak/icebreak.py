@@ -82,14 +82,21 @@ async def icebreak_talk(limit_time_sec: int = 300):
     # -> ...
     # 指定された時間になったら終了
     
-    signal.signal(signal.SIGALRM, timeout_handler)
-    signal.alarm(limit_time_sec)
+    # signal.signal(signal.SIGALRM, timeout_handler)
+    # signal.alarm(limit_time_sec)
+    timeout_event = asyncio.Event()
+   
+    async def timeout_setter():
+        await asyncio.sleep(limit_time_sec)
+        timeout_event.set()
+   
+    timeout_task = asyncio.create_task(timeout_setter())
 
     flag = 0
     
     try:
         propose_topic()
-        while True:
+        while not timeout_event.is_set():
 
             print("<<Please speak.>>")
             script_path = "icebreak/audio_rec.sh"
@@ -125,17 +132,47 @@ async def icebreak_talk(limit_time_sec: int = 300):
             await wav_queue.put(filename)
             print(f"Added to queue: {filename}")
 
-    except TimeoutError:
+    # except TimeoutError:
+    #     print('Time is up!')
+    #     end_icebreak()
+    # finally:
+    #     while not wav_queue.empty():
+    #         await asyncio.sleep(1)
+    #     signal.alarm(0)    
+    except Exception as e:
+        print(f"An error occurred: {e}")
+    finally:
+        timeout_task.cancel()
         end_icebreak()
         print('Time is up!')
-    finally:
-        signal.alarm(0)    
+
+# def icebreak(num_speakers: int):
+#     global spk_num  # グローバル変数として話者人数を設定
+#     spk_num = num_speakers  # 引数として渡された人数を設定
+
+#     loop = asyncio.get_event_loop()
+#     loop.create_task(process_wav_files())  # 非同期でwavファイルの処理を開始
+#     loop.run_until_complete(icebreak_talk(1 * 30))  # アイスブレイクの処理を同期で実行
+
+async def process_remaining_wav_files():
+    while not wav_queue.empty():
+        filename = await wav_queue.get()
+        await asyncio.to_thread(process_wav, filename)
+        wav_queue.task_done()
 
 def icebreak(num_speakers: int):
-    global spk_num  # グローバル変数として話者人数を設定
-    spk_num = num_speakers  # 引数として渡された人数を設定
+    global spk_num
+    spk_num = num_speakers
 
-    loop = asyncio.get_event_loop()
-    loop.create_task(process_wav_files())  # 非同期でwavファイルの処理を開始
-    loop.run_until_complete(icebreak_talk(5 * 60))  # アイスブレイクの処理を同期で実行
+    async def main():
+        wav_processing_task = asyncio.create_task(process_wav_files())
+        await icebreak_talk(1 * 30)
+        await process_remaining_wav_files()
+        wav_processing_task.cancel()
+        try:
+            await wav_processing_task
+        except asyncio.CancelledError:
+            pass
+
+    asyncio.run(main())
 
